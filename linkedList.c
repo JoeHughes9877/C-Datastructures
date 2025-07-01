@@ -27,7 +27,7 @@ void insertAtFront(char *data) {
   }
 }
 
-void print_back() {
+void printBack() {
   struct Node *current = tail;
   while (current != NULL) {
     printf("%s", current->data);
@@ -36,7 +36,7 @@ void print_back() {
   printf("\n"); // pretty printing
 }
 
-void print_front() {
+void printFront() {
   struct Node *current = header;
 
   while (current != NULL) {
@@ -46,14 +46,39 @@ void print_front() {
   printf("\n"); // pretty printing
 }
 
+void deleteByValue(char *data) {
+  struct Node *current = header;
+
+  while (current != NULL) {
+    if (strcmp(current->data, data) == 0) {
+      current->next->prev = current->prev;
+      current->prev->next = current->next;
+
+      if (current == header) {
+        header = current->next;
+      }
+      if (current == tail) {
+        tail = current->prev;
+      }
+      free(current);
+      return;
+    }
+    current = current->next;
+  }
+}
+
 int main() {
   insertAtFront("a");
+
+  insertAtFront("m"); // removed value
+
   insertAtFront("p");
   insertAtFront("p");
   insertAtFront("l");
   insertAtFront("e");
   insertAtFront("s");
 
-  print_front();
-  print_back();
+  printBack();
+  deleteByValue("m");
+  printBack();
 }
