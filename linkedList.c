@@ -17,17 +17,26 @@ void insertAtFront(char *data) {
   newNode->prev = NULL;
 
   if (header == NULL) {
-    header = newNode;
-    tail = newNode;
+    header = tail = newNode;
+    newNode->prev = newNode->next = NULL;
   } else {
     header->prev = newNode;
-    newNode->next = header; // this makes newNode point to the last thing
-                            // header was pointing to
-    header = newNode;       // updates the header to include the new node
+    newNode->next = header;
+    newNode->prev = NULL;
+    header = newNode;
   }
 }
 
-void printList() {
+void print_back() {
+  struct Node *current = tail;
+  while (current != NULL) {
+    printf("%s", current->data);
+    current = current->prev;
+  }
+  printf("\n"); // pretty printing
+}
+
+void print_front() {
   struct Node *current = header;
 
   while (current != NULL) {
@@ -45,5 +54,6 @@ int main() {
   insertAtFront("e");
   insertAtFront("s");
 
-  printList();
+  print_front();
+  print_back();
 }
