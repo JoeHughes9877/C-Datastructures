@@ -27,6 +27,22 @@ void insertAtFront(char *data) {
   }
 }
 
+void insertAtBack(char *data) {
+  struct Node *newNode = malloc(sizeof(struct Node));
+  newNode->data = data;
+  newNode->prev = NULL;
+
+  if (header == NULL) {
+    header = tail = newNode;
+    newNode->prev = newNode->next = NULL;
+  } else {
+    newNode->prev = tail;
+    newNode->next = NULL;
+    tail->next = newNode;
+    tail = newNode;
+  }
+}
+
 void printBack() {
   struct Node *current = tail;
   while (current != NULL) {
@@ -68,8 +84,6 @@ void deleteByValue(char *data) {
 }
 
 int main() {
-  insertAtFront("a");
-
   insertAtFront("m"); // removed value
 
   insertAtFront("p");
@@ -78,7 +92,8 @@ int main() {
   insertAtFront("e");
   insertAtFront("s");
 
-  printBack();
+  insertAtBack("a");
+
   deleteByValue("m");
   printBack();
 }
