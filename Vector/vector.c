@@ -20,4 +20,12 @@ int size(struct Node *vector) { return vector->capacity; }
 
 void clear(struct Node *vector) { free(vector); }
 
+void push_back(int value) {}
+
+struct Node front(struct Node *vector) {
+  if (!isEmpty((vector))) {
+    return vector[0];
+  }
+}
+
 int main() {}
