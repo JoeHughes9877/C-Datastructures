@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 struct Node {
   int vector[0];
@@ -16,5 +17,7 @@ bool isEmpty(struct Node *vector) {
 }
 
 int size(struct Node *vector) { return vector->capacity; }
+
+void clear(struct Node *vector) { free(vector); }
 
 int main() {}
