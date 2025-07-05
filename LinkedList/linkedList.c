@@ -96,4 +96,5 @@ int main() {
 
   deleteByValue("m");
   printBack();
+  printFront();
 }
