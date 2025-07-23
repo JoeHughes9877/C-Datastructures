@@ -65,6 +65,7 @@ int main() {
   pop(&s);
 
   push(&s, 40);
+  peek(&s);
 
   print_stack(&s);
 
