@@ -13,14 +13,14 @@ A lightweight and efficient collection of data structures implemented in C. This
   - Supports forward and backward traversal.
   - Efficient insertion and deletion at both ends and in the middle.
   - Converted from an initial singly linked list implementation.
+ 
+- **Stack**
+  - Array-based and/or linked-list based.
+  - LIFO operations: `push`, `pop`, `peek`.
 
 ## 🛠️ Planned Features
 
 The following data structures are planned for implementation:
-
-- **Stack**
-  - Array-based and/or linked-list based.
-  - LIFO operations: `push`, `pop`, `peek`.
 
 - **Queue**
   - Circular buffer or linked-list based.
