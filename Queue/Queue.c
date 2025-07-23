@@ -1,7 +1,8 @@
+#include "../LinkedList/LinkedList.h"
 #include <stdio.h>
 
 struct Queue {
-  int arr[10];
+  struct Node *arr;
   int queue_size;
 };
 
