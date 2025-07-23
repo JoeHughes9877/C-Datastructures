@@ -12,7 +12,7 @@ int pop(struct Stack *s);
 void print_stack(struct Stack *s);
 
 void push(struct Stack *s, int value) {
-  if (s->array_size + 1 == 11) {
+  if (s->array_size == 10) {
     printf("Stack full.");
     return;
   }
@@ -30,7 +30,8 @@ void print_stack(struct Stack *s) {
 }
 
 int pop(struct Stack *s) {
-  int last_diget;
+  int last_diget = s->arr[s->array_size - 1];
+  s->array_size = s->array_size - 1;
 
   return last_diget;
 }
@@ -42,6 +43,10 @@ int main() {
   push(&s, 10);
   push(&s, 20);
   push(&s, 30);
+  push(&s, 50);
+
+  pop(&s);
+
   push(&s, 40);
 
   print_stack(&s);
