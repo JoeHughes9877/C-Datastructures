@@ -10,6 +10,7 @@ const int MAX_SIZE = 10;
 void push(struct Stack *s, int value);
 int pop(struct Stack *s);
 void print_stack(struct Stack *s);
+void peek(struct Stack *s);
 
 void push(struct Stack *s, int value) {
   if (s->array_size == 10) {
@@ -41,14 +42,25 @@ int pop(struct Stack *s) {
   return last_diget;
 }
 
+void peek(struct Stack *s) {
+  printf("Top value is: %i\n", s->arr[s->array_size - 1]);
+}
+
 int main() {
   struct Stack s;
   s.array_size = 0;
 
   push(&s, 10);
+  peek(&s);
+
   push(&s, 20);
+  peek(&s);
+
   push(&s, 30);
+  peek(&s);
+
   push(&s, 50);
+  peek(&s);
 
   pop(&s);
 
