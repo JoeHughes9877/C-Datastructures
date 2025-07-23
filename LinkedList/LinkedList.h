@@ -1,9 +1,8 @@
 #ifndef DOUBLY_LINKED_LIST_H
 #define DOUBLY_LINKED_LIST_H
 
-// Node structure for doubly linked list
 struct Node {
-  char *data;
+  int data;
   struct Node *next;
   struct Node *prev;
 };
@@ -13,10 +12,10 @@ extern struct Node *header;
 extern struct Node *tail;
 
 // Function declarations
-void insertAtFront(char *data);
-void insertAtBack(char *data);
+void insertAtFront(int data);
+void insertAtBack(int data);
 void printBack(void);
 void printFront(void);
-void deleteByValue(char *data);
+void deleteByValue(int data);
 
 #endif
