@@ -9,7 +9,7 @@ const int MAX_SIZE = 10;
 
 void push(struct Stack *s, int value);
 int pop(struct Stack *s);
-void print_stack();
+void print_stack(struct Stack *s);
 
 void push(struct Stack *s, int value) {
   if (s->array_size + 1 == 11) {
@@ -17,13 +17,17 @@ void push(struct Stack *s, int value) {
     return;
   }
 
-  s->array_size++;
   s->arr[s->array_size] = value;
-  printf("%i added to stack", value);
+  s->array_size++;
+  printf("%i added to stack\n", value);
   return;
 }
 
-void print_stack() {}
+void print_stack(struct Stack *s) {
+  for (int i = 0; i < s->array_size; i++) {
+    printf("at index %i is %i\n", i, s->arr[i]);
+  }
+}
 
 int pop(struct Stack *s) {
   int last_diget;
@@ -35,7 +39,12 @@ int main() {
   struct Stack s;
   s.array_size = 0;
 
-  push(&s, 1);
+  push(&s, 10);
+  push(&s, 20);
+  push(&s, 30);
+  push(&s, 40);
+
+  print_stack(&s);
 
   return 0;
 }
