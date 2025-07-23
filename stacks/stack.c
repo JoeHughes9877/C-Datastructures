@@ -30,6 +30,11 @@ void print_stack(struct Stack *s) {
 }
 
 int pop(struct Stack *s) {
+  if (s->array_size == 0) {
+    printf("Stack underflow\n");
+    return -1; // or some error code
+  }
+
   int last_diget = s->arr[s->array_size - 1];
   s->array_size = s->array_size - 1;
 
