@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 struct Node {
-  char *data;
+  int data; // Changed from char * to int
   struct Node *next;
   struct Node *prev;
 };
@@ -11,33 +10,39 @@ struct Node {
 struct Node *header = NULL;
 struct Node *tail = NULL;
 
-void insertAtFront(char *data) {
+void insertAtFront(int data) {
   struct Node *newNode = malloc(sizeof(struct Node));
+  if (newNode == NULL) {
+    perror("Failed to allocate memory for new node");
+    exit(EXIT_FAILURE);
+  }
   newNode->data = data;
   newNode->prev = NULL;
 
   if (header == NULL) {
     header = tail = newNode;
-    newNode->prev = newNode->next = NULL;
+    newNode->next = NULL;
   } else {
     header->prev = newNode;
     newNode->next = header;
-    newNode->prev = NULL;
     header = newNode;
   }
 }
 
-void insertAtBack(char *data) {
+void insertAtBack(int data) {
   struct Node *newNode = malloc(sizeof(struct Node));
+  if (newNode == NULL) {
+    perror("Failed to allocate memory for new node");
+    exit(EXIT_FAILURE);
+  }
   newNode->data = data;
-  newNode->prev = NULL;
+  newNode->next = NULL;
 
   if (header == NULL) {
     header = tail = newNode;
-    newNode->prev = newNode->next = NULL;
+    newNode->prev = NULL;
   } else {
     newNode->prev = tail;
-    newNode->next = NULL;
     tail->next = newNode;
     tail = newNode;
   }
@@ -46,7 +51,7 @@ void insertAtBack(char *data) {
 void printBack() {
   struct Node *current = tail;
   while (current != NULL) {
-    printf("%s", current->data);
+    printf("%d", current->data);
     current = current->prev;
   }
   printf("\n"); // pretty printing
@@ -56,26 +61,29 @@ void printFront() {
   struct Node *current = header;
 
   while (current != NULL) {
-    printf("%s", current->data);
+    printf("%d", current->data);
     current = current->next;
   }
   printf("\n"); // pretty printing
 }
 
-void deleteByValue(char *data) {
+void deleteByValue(int data) {
   struct Node *current = header;
 
   while (current != NULL) {
-    if (strcmp(current->data, data) == 0) {
-      current->next->prev = current->prev;
-      current->prev->next = current->next;
-
-      if (current == header) {
+    if (current->data == data) {
+      if (current->prev != NULL) {
+        current->prev->next = current->next;
+      } else {
         header = current->next;
       }
-      if (current == tail) {
+
+      if (current->next != NULL) {
+        current->next->prev = current->prev;
+      } else {
         tail = current->prev;
       }
+
       free(current);
       return;
     }
@@ -84,17 +92,17 @@ void deleteByValue(char *data) {
 }
 
 int main() {
-  insertAtFront("m"); // removed value
+  insertAtFront(13);
+  insertAtFront(16);
+  insertAtFront(16);
+  insertAtFront(12);
+  insertAtFront(15);
+  insertAtFront(19);
 
-  insertAtFront("p");
-  insertAtFront("p");
-  insertAtFront("l");
-  insertAtFront("e");
-  insertAtFront("s");
+  insertAtBack(10);
 
-  insertAtBack("a");
-
-  deleteByValue("m");
-  printBack();
+  deleteByValue(13);
   printFront();
+
+  return 0;
 }
