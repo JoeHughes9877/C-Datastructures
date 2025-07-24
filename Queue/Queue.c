@@ -17,7 +17,12 @@ int size(struct Queue *q);
 
 // Adds an element to the back of the queue
 void enqueue(struct Queue *q, int item) {
-  insertAtBack(*q->tail, item);
+  if (q->queue_size == MAX_SIZE) {
+    printf("Queue is full:");
+    return;
+  }
+
+  insertAtBack(&q->head, &q->tail, item);
   q->queue_size++;
 }
 
@@ -27,8 +32,8 @@ int dequeue(struct Queue *q) {
     printf("Queue is empty\n");
     return 0;
   } else {
-    int value = header->data;
-    deleteByIndex(*q->head, 0);
+    int value = q->head->data;
+    deleteByIndex(&q->head, &q->tail, 0);
     q->queue_size--;
     return value;
   }
@@ -40,7 +45,7 @@ int peek(struct Queue *q) {
     printf("Queue is empty\n");
     return 0;
   } else {
-    return header->data;
+    return q->head->data;
   }
 }
 
@@ -59,6 +64,8 @@ int size(struct Queue *q) { return q->queue_size; }
 int main() {
   struct Queue q;
   q.queue_size = 0;
+  q.head = NULL;
+  q.tail = NULL;
 
   if (is_empty(&q) == 1) {
     printf("Stack is empty\n");
