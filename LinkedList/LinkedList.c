@@ -10,32 +10,35 @@ struct Node {
 struct Node *header = NULL;
 struct Node *tail = NULL;
 
-void insertAtFront(int data) {
+void insertAtFront(struct Node node) {
   struct Node *newNode = malloc(sizeof(struct Node));
   if (newNode == NULL) {
     perror("Failed to allocate memory for new node");
     exit(EXIT_FAILURE);
   }
-  newNode->data = data;
+
+  // Copy data from passed struct node (only data, not pointers)
+  newNode->data = node.data;
   newNode->prev = NULL;
 
   if (header == NULL) {
     header = tail = newNode;
     newNode->next = NULL;
   } else {
-    header->prev = newNode;
     newNode->next = header;
+    header->prev = newNode;
     header = newNode;
   }
 }
 
-void insertAtBack(int data) {
+void insertAtBack(struct Node node) {
   struct Node *newNode = malloc(sizeof(struct Node));
   if (newNode == NULL) {
     perror("Failed to allocate memory for new node");
     exit(EXIT_FAILURE);
   }
-  newNode->data = data;
+
+  newNode->data = node.data;
   newNode->next = NULL;
 
   if (header == NULL) {
@@ -118,16 +121,31 @@ void deleteByIndex(int index) {
 }
 
 int main() {
-  insertAtFront(13);
-  insertAtFront(16);
-  insertAtFront(16);
-  insertAtFront(12);
-  insertAtFront(15);
-  insertAtFront(19);
+  struct Node tempNode;
 
-  insertAtBack(10);
+  tempNode.data = 13;
+  insertAtFront(tempNode);
+
+  tempNode.data = 16;
+  insertAtFront(tempNode);
+
+  tempNode.data = 16;
+  insertAtFront(tempNode);
+
+  tempNode.data = 12;
+  insertAtFront(tempNode);
+
+  tempNode.data = 15;
+  insertAtFront(tempNode);
+
+  tempNode.data = 19;
+  insertAtFront(tempNode);
+
+  tempNode.data = 10;
+  insertAtBack(tempNode);
 
   deleteByValue(13);
+
   printFront();
 
   return 0;
