@@ -63,15 +63,42 @@ int size(struct Queue *q) { return q->queue_size; }
 
 int main() {
   struct Queue q;
-  q.queue_size = 0;
   q.head = NULL;
   q.tail = NULL;
+  q.queue_size = 0;
 
-  if (is_empty(&q) == 1) {
-    printf("Stack is empty\n");
-  } else {
-    printf("stacks size is currently");
-    size(&q);
-    printf("\n");
+  // Enqueue elements
+  printf("Enqueueing elements:\n");
+  for (int i = 1; i <= 12; i++) {
+    printf("Enqueue %d: ", i);
+    enqueue(&q, i);
+    printf("Queue size: %d\n", size(&q));
   }
+
+  // Peek at the front element
+  printf("\nPeeking at front: %d\n", peek(&q));
+
+  // Dequeue a few elements
+  printf("\nDequeuing elements:\n");
+  for (int i = 0; i < 5; i++) {
+    int val = dequeue(&q);
+    printf("Dequeued: %d | New front: %d | Queue size: %d\n", val, peek(&q),
+           size(&q));
+  }
+
+  // Dequeue all remaining elements
+  printf("\nDequeuing remaining elements:\n");
+  while (!is_empty(&q)) {
+    printf("Dequeued: %d | Queue size: %d\n", dequeue(&q), size(&q));
+  }
+
+  // Try dequeueing from empty queue
+  printf("\nTrying to dequeue from an empty queue:\n");
+  dequeue(&q);
+
+  // Try peeking from empty queue
+  printf("\nTrying to peek at an empty queue:\n");
+  peek(&q);
+
+  return 0;
 }
