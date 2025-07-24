@@ -17,14 +17,14 @@ A lightweight and efficient collection of data structures implemented in C. This
 - **Stack**
   - Array-based and/or linked-list based.
   - LIFO operations: `push`, `pop`, `peek`.
+ 
+- **Queue**
+  - Circular buffer or linked-list based.
+  - FIFO operations: `enqueue`, `dequeue`.
 
 ## 🛠️ Planned Features
 
 The following data structures are planned for implementation:
-
-- **Queue**
-  - Circular buffer or linked-list based.
-  - FIFO operations: `enqueue`, `dequeue`.
 
 - **Hash Map**
   - String and integer key support.
