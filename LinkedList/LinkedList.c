@@ -10,35 +10,32 @@ struct Node {
 struct Node *header = NULL;
 struct Node *tail = NULL;
 
-void insertAtFront(struct Node node) {
+void insertAtFront(struct Node node, int data) {
   struct Node *newNode = malloc(sizeof(struct Node));
   if (newNode == NULL) {
     perror("Failed to allocate memory for new node");
     exit(EXIT_FAILURE);
   }
-
-  // Copy data from passed struct node (only data, not pointers)
-  newNode->data = node.data;
+  newNode->data = data;
   newNode->prev = NULL;
 
   if (header == NULL) {
     header = tail = newNode;
     newNode->next = NULL;
   } else {
-    newNode->next = header;
     header->prev = newNode;
+    newNode->next = header;
     header = newNode;
   }
 }
 
-void insertAtBack(struct Node node) {
+void insertAtBack(struct Node node, int data) {
   struct Node *newNode = malloc(sizeof(struct Node));
   if (newNode == NULL) {
     perror("Failed to allocate memory for new node");
     exit(EXIT_FAILURE);
   }
-
-  newNode->data = node.data;
+  newNode->data = data;
   newNode->next = NULL;
 
   if (header == NULL) {
@@ -70,7 +67,7 @@ void printFront() {
   printf("\n"); // pretty printing
 }
 
-void deleteByValue(int data) {
+void deleteByValue(struct Node node, int data) {
   struct Node *current = header;
 
   while (current != NULL) {
@@ -94,7 +91,7 @@ void deleteByValue(int data) {
   }
 }
 
-void deleteByIndex(int index) {
+void deleteByIndex(struct Node node, int index) {
   struct Node *current = header;
   int i = 0;
 
@@ -118,35 +115,4 @@ void deleteByIndex(int index) {
     current = current->next;
     i++;
   }
-}
-
-int main() {
-  struct Node tempNode;
-
-  tempNode.data = 13;
-  insertAtFront(tempNode);
-
-  tempNode.data = 16;
-  insertAtFront(tempNode);
-
-  tempNode.data = 16;
-  insertAtFront(tempNode);
-
-  tempNode.data = 12;
-  insertAtFront(tempNode);
-
-  tempNode.data = 15;
-  insertAtFront(tempNode);
-
-  tempNode.data = 19;
-  insertAtFront(tempNode);
-
-  tempNode.data = 10;
-  insertAtBack(tempNode);
-
-  deleteByValue(13);
-
-  printFront();
-
-  return 0;
 }
