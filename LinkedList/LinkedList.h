@@ -12,11 +12,11 @@ extern struct Node *header;
 extern struct Node *tail;
 
 // Function declarations
-void insertAtFront(struct Node node, int data);
-void insertAtBack(struct Node node, int data);
-void printBack(void);
-void printFront(void);
-void deleteByValue(struct Node node, int data);
-void deleteByIndex(struct Node node, int data);
+void insertAtFront(struct Node **head, struct Node **tail, int data);
+void insertAtBack(struct Node **head, struct Node **tail, int data);
+void printBack(struct Node **tail);
+void printFront(struct Node **head);
+void deleteByValue(struct Node **head, struct Node **tail, int data);
+void deleteByIndex(struct Node **head, struct Node **tail, int index);
 
 #endif
