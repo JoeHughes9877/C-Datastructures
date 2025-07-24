@@ -91,6 +91,32 @@ void deleteByValue(int data) {
   }
 }
 
+void deleteByIndex(int index) {
+  struct Node *current = header;
+  int i = 0;
+
+  while (current != NULL) {
+    if (i == index) {
+      if (current->prev != NULL) {
+        current->prev->next = current->next;
+      } else {
+        header = current->next;
+      }
+
+      if (current->next != NULL) {
+        current->next->prev = current->prev;
+      } else {
+        tail = current->prev;
+      }
+
+      free(current);
+      return;
+    }
+    current = current->next;
+    i++;
+  }
+}
+
 int main() {
   insertAtFront(13);
   insertAtFront(16);
