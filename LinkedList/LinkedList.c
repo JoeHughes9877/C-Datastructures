@@ -7,10 +7,7 @@ struct Node {
   struct Node *prev;
 };
 
-struct Node *header = NULL;
-struct Node *tail = NULL;
-
-void insertAtFront(struct Node node, int data) {
+void insertAtFront(struct Node **head, struct Node **tail, int data) {
   struct Node *newNode = malloc(sizeof(struct Node));
   if (newNode == NULL) {
     perror("Failed to allocate memory for new node");
@@ -19,17 +16,17 @@ void insertAtFront(struct Node node, int data) {
   newNode->data = data;
   newNode->prev = NULL;
 
-  if (header == NULL) {
-    header = tail = newNode;
+  if ((*head) == NULL) {
+    (*head) = (*tail) = newNode;
     newNode->next = NULL;
   } else {
-    header->prev = newNode;
-    newNode->next = header;
-    header = newNode;
+    (*head)->prev = newNode;
+    newNode->next = (*head);
+    (*head) = newNode;
   }
 }
 
-void insertAtBack(struct Node node, int data) {
+void insertAtBack(struct Node **head, struct Node **tail, int data) {
   struct Node *newNode = malloc(sizeof(struct Node));
   if (newNode == NULL) {
     perror("Failed to allocate memory for new node");
@@ -38,18 +35,18 @@ void insertAtBack(struct Node node, int data) {
   newNode->data = data;
   newNode->next = NULL;
 
-  if (header == NULL) {
-    header = tail = newNode;
+  if ((*head) == NULL) {
+    (*head) = (*tail) = newNode;
     newNode->prev = NULL;
   } else {
-    newNode->prev = tail;
-    tail->next = newNode;
-    tail = newNode;
+    newNode->prev = (*tail);
+    (*tail)->next = newNode;
+    (*tail) = newNode;
   }
 }
 
-void printBack() {
-  struct Node *current = tail;
+void printBack(struct Node **tail) {
+  struct Node *current = (*tail);
   while (current != NULL) {
     printf("%d", current->data);
     current = current->prev;
@@ -57,8 +54,8 @@ void printBack() {
   printf("\n"); // pretty printing
 }
 
-void printFront() {
-  struct Node *current = header;
+void printFront(struct Node **head) {
+  struct Node *current = (*head);
 
   while (current != NULL) {
     printf("%d", current->data);
@@ -67,21 +64,21 @@ void printFront() {
   printf("\n"); // pretty printing
 }
 
-void deleteByValue(struct Node node, int data) {
-  struct Node *current = header;
+void deleteByValue(struct Node **head, struct Node **tail, int data) {
+  struct Node *current = (*head);
 
   while (current != NULL) {
     if (current->data == data) {
       if (current->prev != NULL) {
         current->prev->next = current->next;
       } else {
-        header = current->next;
+        (*head) = current->next;
       }
 
       if (current->next != NULL) {
         current->next->prev = current->prev;
       } else {
-        tail = current->prev;
+        (*tail) = current->prev;
       }
 
       free(current);
@@ -91,8 +88,8 @@ void deleteByValue(struct Node node, int data) {
   }
 }
 
-void deleteByIndex(struct Node node, int index) {
-  struct Node *current = header;
+void deleteByIndex(struct Node **head, struct Node **tail, int index) {
+  struct Node *current = (*head);
   int i = 0;
 
   while (current != NULL) {
@@ -100,13 +97,13 @@ void deleteByIndex(struct Node node, int index) {
       if (current->prev != NULL) {
         current->prev->next = current->next;
       } else {
-        header = current->next;
+        (*head) = current->next;
       }
 
       if (current->next != NULL) {
         current->next->prev = current->prev;
       } else {
-        tail = current->prev;
+        (*tail) = current->prev;
       }
 
       free(current);
