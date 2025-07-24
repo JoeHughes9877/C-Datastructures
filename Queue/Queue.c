@@ -2,7 +2,8 @@
 #include <stdio.h>
 
 struct Queue {
-  struct Node *arr;
+  struct Node *head;
+  struct Node *tail;
   int queue_size;
 };
 
@@ -15,10 +16,23 @@ int is_empty(struct Queue *q);
 int size(struct Queue *q);
 
 // Adds an element to the back of the queue
-void enqueue(struct Queue *q, int item) {}
+void enqueue(struct Queue *q, int item) {
+  insertAtBack(*q->tail, item);
+  q->queue_size++;
+}
 
 // Removes and returns the front element of the queue
-int dequeue(struct Queue *q) {}
+int dequeue(struct Queue *q) {
+  if (q->queue_size == 0) {
+    printf("Queue is empty\n");
+    return 0;
+  } else {
+    int value = header->data;
+    deleteByIndex(*q->head, 0);
+    q->queue_size--;
+    return value;
+  }
+}
 
 // Returns the front element without removing it
 int peek(struct Queue *q) {
@@ -26,7 +40,7 @@ int peek(struct Queue *q) {
     printf("Queue is empty\n");
     return 0;
   } else {
-    return q->arr[0];
+    return header->data;
   }
 }
 
