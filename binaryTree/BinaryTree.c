@@ -139,6 +139,33 @@ Node *findMin(Node *root) {
   return newNode;
 }
 
+int height(Node *root) {
+  if (root == NULL) {
+    printf("tree is empty\n");
+    return 0;
+  }
+
+  int left_height = 0;
+  int right_height = 0;
+
+  if (root->left != NULL) {
+    left_height = height(root->left);
+  }
+  if (root->right != NULL) {
+    right_height = height(root->right);
+  }
+
+  if (root->right == NULL && root->left == NULL) {
+    if (left_height > right_height) {
+      return left_height + 1;
+    } else {
+      return right_height + 1;
+    }
+  }
+  printf("height failed");
+  return NULL;
+}
+
 // Sample main function
 int main() {
   Node *root = createNode(1);
