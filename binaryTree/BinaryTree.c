@@ -13,15 +13,15 @@ Node *insert(Node *root, int data);     // Insert into BST
 Node *search(Node *root, int target);   // Search for value
 Node *deleteNode(Node *root, int data); // Delete node from BST
 
-void inorder(Node *root);   // In-order traversal
-void preorder(Node *root);  // Pre-order traversal
-void postorder(Node *root); // Post-order traversal
-
 int height(Node *root);     // Tree height
 int size(Node *root);       // Tree size (node count)
 Node *findMin(Node *root);  // Minimum value in BST
 Node *findMax(Node *root);  // Maximum value i\\n BST
 int isBalanced(Node *root); // Check if tree is balanced
+
+void inorder(Node *root);   // In-order traversal
+void preorder(Node *root);  // Pre-order traversal
+void postorder(Node *root); // Post-order traversal
 
 Node *createNode(int data) {
   Node *n = malloc(sizeof(Node));
@@ -82,6 +82,36 @@ Node *search(Node *root, int target) {
   }
 
   printf("target is not in tree");
+  return NULL;
+}
+
+Node *deleteNode(Node *root, int data) {
+  if (root == NULL) {
+    printf("tree is empty\n");
+    return NULL;
+  }
+
+  if (data > root->data) {
+    root->right = deleteNode(root->right, data);
+    return root;
+  } else if (data < root->data) {
+    root->left = deleteNode(root->left, data);
+    return root;
+  } else if (root->data == data) {
+    if (root->left == NULL && root->right == NULL) {
+      free(root);
+      return NULL;
+    } else if (root->left == NULL && root->right != NULL) {
+      free(root);
+      return root->right;
+    } else if (root->left != NULL && root->right == NULL) {
+      free(root->left);
+      return root->left;
+    } else if (root->left != NULL && root->right != NULL) {
+      // TODO
+    }
+  }
+  printf("delete failed.\n");
   return NULL;
 }
 
