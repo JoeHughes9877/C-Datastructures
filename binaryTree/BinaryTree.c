@@ -10,7 +10,7 @@ typedef struct Node {
 // Function Prototypes
 Node *createNode(int data);             // Constructor
 Node *insert(Node *root, int data);     // Insert into BST
-int search(Node *root, int target);     // Search for value
+Node *search(Node *root, int target);   // Search for value
 Node *deleteNode(Node *root, int data); // Delete node from BST
 
 void inorder(Node *root);   // In-order traversal
@@ -62,6 +62,26 @@ Node *insert(Node *root, int data) {
       return root;
     }
   }
+  return NULL;
+}
+
+Node *search(Node *root, int target) {
+  if (root == NULL) {
+    printf("tree is empty\n");
+    return NULL;
+  }
+  if (target == root->data) {
+    return root;
+  }
+
+  if (target > root->data) {
+    return search(root->right, target);
+  }
+  if (target < root->data) {
+    return search(root->left, target);
+  }
+
+  printf("target is not in tree");
   return NULL;
 }
 
