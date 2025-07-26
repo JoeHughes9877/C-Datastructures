@@ -102,13 +102,23 @@ Node *deleteNode(Node *root, int data) {
       free(root);
       return NULL;
     } else if (root->left == NULL && root->right != NULL) {
+      Node *tmp = root->right;
       free(root);
-      return root->right;
+      return tmp;
     } else if (root->left != NULL && root->right == NULL) {
-      free(root->left);
-      return root->left;
+      Node *tmp = root->left;
+      free(root);
+      return tmp;
     } else if (root->left != NULL && root->right != NULL) {
-      // TODO
+      Node *tmp = findMin(root->right);
+
+      if (!tmp) {
+        printf("find Min failed, NULL returned.\n");
+        return NULL;
+      }
+      root->data = tmp->data;
+      root->right = deleteNode(root->right, tmp->data);
+      return root;
     }
   }
   printf("delete failed.\n");
