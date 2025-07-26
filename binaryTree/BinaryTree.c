@@ -198,6 +198,20 @@ Node *findMax(Node *root) {
   return root;
 }
 
+int isBalanced(Node *root) {
+  int right_hight = 0;
+  int left_hight = 0;
+
+  right_hight += height(root->right);
+  left_hight += height(root->left);
+
+  if (abs(right_hight - left_hight) > 1) {
+    return 0;
+  }
+
+  return isBalanced(root->left) - isBalanced(root->right);
+}
+
 // Sample main function
 int main() {
   Node *root = createNode(1);
