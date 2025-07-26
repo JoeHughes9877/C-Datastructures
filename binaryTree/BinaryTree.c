@@ -115,6 +115,20 @@ Node *deleteNode(Node *root, int data) {
   return NULL;
 }
 
+Node *findMin(Node *root) {
+  if (root == NULL) {
+    printf("tree is empty\n");
+    return NULL;
+  }
+
+  Node *newNode = root;
+  while (root->left != NULL) {
+    newNode = root;
+    root = root->left;
+  }
+  return newNode;
+}
+
 // Sample main function
 int main() {
   Node *root = createNode(1);
