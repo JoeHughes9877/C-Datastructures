@@ -20,7 +20,7 @@ void postorder(Node *root); // Post-order traversal
 int height(Node *root);     // Tree height
 int size(Node *root);       // Tree size (node count)
 Node *findMin(Node *root);  // Minimum value in BST
-Node *findMax(Node *root);  // Maximum value in BST
+Node *findMax(Node *root);  // Maximum value i\\n BST
 int isBalanced(Node *root); // Check if tree is balanced
 
 Node *createNode(int data) {
@@ -36,5 +36,37 @@ Node *createNode(int data) {
   return n;
 }
 
+Node *insert(Node *root, int data) {
+  if (root == NULL) {
+    return createNode(data);
+  }
+
+  if (data > root->data) {
+    if (root->right == NULL) {
+      Node *newNode = createNode(data);
+      root->right = newNode;
+      return root;
+    } else {
+      Node *newNode = insert(root->right, data);
+      root->right = newNode;
+      return root;
+    }
+  } else if (data < root->data) {
+    if (root->left == NULL) {
+      Node *newNode = createNode(data);
+      root->left = newNode;
+      return root;
+    } else {
+      Node *newNode = insert(root->left, data);
+      root->left = newNode;
+      return root;
+    }
+  }
+  return NULL;
+}
+
 // Sample main function
-int main() { Node *root = createNode(1); }
+int main() {
+  Node *root = createNode(1);
+  root = insert(root, 50);
+}
