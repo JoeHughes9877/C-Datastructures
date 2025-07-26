@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Define the Node structure and alias 'Node' using typedef
 typedef struct Node {
   int data;
   struct Node *left;
@@ -24,8 +23,18 @@ Node *findMin(Node *root);  // Minimum value in BST
 Node *findMax(Node *root);  // Maximum value in BST
 int isBalanced(Node *root); // Check if tree is balanced
 
-// Sample main function
-int main() {
-  printf("Binary Tree Test\n");
-  return 0;
+Node *createNode(int data) {
+  Node *n = malloc(sizeof(Node));
+  if (n == NULL) {
+    printf("malloc failed");
+    return NULL;
+  }
+  n->left = NULL;
+  n->right = NULL;
+  n->data = data;
+
+  return n;
 }
+
+// Sample main function
+int main() { Node *root = createNode(1); }
