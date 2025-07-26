@@ -125,20 +125,6 @@ Node *deleteNode(Node *root, int data) {
   return NULL;
 }
 
-Node *findMin(Node *root) {
-  if (root == NULL) {
-    printf("tree is empty\n");
-    return NULL;
-  }
-
-  Node *newNode = root;
-  while (root->left != NULL) {
-    newNode = root;
-    root = root->left;
-  }
-  return newNode;
-}
-
 int height(Node *root) {
   if (root == NULL) {
     printf("tree is empty\n");
@@ -164,6 +150,52 @@ int height(Node *root) {
   }
   printf("height failed");
   return NULL;
+}
+
+int size(Node *root) {
+  if (root == NULL) {
+    printf("tree is empty\n");
+    return 0;
+  }
+
+  int total_nodes = 1;
+
+  if (root->left != NULL) {
+    total_nodes += size(root->left);
+  }
+  if (root->right != NULL) {
+    total_nodes += size(root->right);
+  }
+
+  return total_nodes;
+}
+
+Node *findMin(Node *root) {
+  if (root == NULL) {
+    printf("tree is empty\n");
+    return NULL;
+  }
+
+  Node *newNode = root;
+  while (root->left != NULL) {
+    newNode = root;
+    root = root->left;
+  }
+  return root;
+}
+
+Node *findMax(Node *root) {
+  if (root == NULL) {
+    printf("tree is empty\n");
+    return NULL;
+  }
+
+  Node *newNode = root;
+  while (root->right != NULL) {
+    newNode = root;
+    root = root->right;
+  }
+  return root;
 }
 
 // Sample main function
