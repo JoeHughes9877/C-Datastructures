@@ -245,7 +245,7 @@ void postorder(Node *root) {
 }
 
 int main() {
-  Node *root = createNode(50);
+  Node *root = NULL;
 
   // Insert nodes
   int values[] = {50, 30, 70, 20, 40, 60, 80};
@@ -253,8 +253,16 @@ int main() {
     root = insert(root, values[i]);
   }
 
-  printf("Inorder traversal: ");
+  printf("Inorder traversal:\n");
   inorder(root);
+  printf("\n");
+
+  printf("Preorder traversal:\n");
+  preorder(root);
+  printf("\n");
+
+  printf("Postorder traversal:\n");
+  postorder(root);
   printf("\n");
 
   // Search test
@@ -281,7 +289,7 @@ int main() {
   // Deletion test
   printf("Deleting node 30...\n");
   root = deleteNode(root, 30);
-  printf("Inorder after deletion: \n");
+  printf("Inorder after deletion:\n");
   inorder(root);
   printf("\n");
 
