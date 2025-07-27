@@ -135,10 +135,10 @@ int height(Node *root) {
   int right_height = 0;
 
   if (root->left != NULL) {
-    left_height = height(root->left);
+    return left_height = height(root->left);
   }
   if (root->right != NULL) {
-    right_height = height(root->right);
+    return right_height = height(root->right);
   }
 
   if (root->right == NULL && root->left == NULL) {
@@ -148,8 +148,8 @@ int height(Node *root) {
       return right_height + 1;
     }
   }
-  printf("height failed");
-  return NULL;
+  printf("height failed\n");
+  return 0;
 }
 
 int size(Node *root) {
@@ -199,6 +199,11 @@ Node *findMax(Node *root) {
 }
 
 int isBalanced(Node *root) {
+  if (root == NULL) {
+    printf("tree is empty\n");
+    return 0;
+  }
+
   int right_hight = 0;
   int left_hight = 0;
 
@@ -212,8 +217,64 @@ int isBalanced(Node *root) {
   return isBalanced(root->left) - isBalanced(root->right);
 }
 
-// Sample main function
+void inorder(Node *root) {
+  if (root == NULL) {
+    printf("tree is empty\n");
+    return;
+  }
+
+  if (root->left != NULL) {
+    inorder(root->left);
+    printf("%i\n", root->left->data);
+  }
+  printf("%i\n", root->data);
+  if (root->right != NULL) {
+    inorder(root->right);
+    printf("%i\n", root->right->data);
+  }
+  return;
+}
+
 int main() {
-  Node *root = createNode(1);
-  root = insert(root, 50);
+  Node *root = createNode(50);
+
+  // Insert nodes
+  int values[] = {50, 30, 70, 20, 40, 60, 80};
+  for (int i = 0; i < 7; i++) {
+    root = insert(root, values[i]);
+  }
+
+  printf("Inorder traversal: ");
+  inorder(root);
+  printf("\n");
+
+  // Search test
+  int target = 40;
+  Node *found = search(root, target);
+  printf("Search %d: %s\n", target, found ? "Found" : "Not Found");
+
+  // Min and Max
+  Node *min = findMin(root);
+  Node *max = findMax(root);
+  printf("Minimum: %d\n", min ? min->data : -1);
+  printf("Maximum: %d\n", max ? max->data : -1);
+
+  // Tree size
+  printf("Size of tree: %d\n", size(root));
+
+  // Height
+  printf("Height of tree: %d\n", height(root));
+
+  // Balance check
+  int balanced = isBalanced(root);
+  printf("Tree is %s\n", balanced ? "Balanced" : "Not Balanced");
+
+  // Deletion test
+  printf("Deleting node 30...\n");
+  root = deleteNode(root, 30);
+  printf("Inorder after deletion: \n");
+  inorder(root);
+  printf("\n");
+
+  return 0;
 }
