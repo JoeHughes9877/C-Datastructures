@@ -235,6 +235,25 @@ void inorder(Node *root) {
   return;
 }
 
+void preorder(Node *root) {
+  if (root == NULL) {
+    printf("tree is empty\n");
+    return;
+  }
+
+  printf("%i\n", root->data);
+
+  if (root->left != NULL) {
+    preorder(root->left);
+    printf("%i\n", root->left->data);
+  }
+  if (root->right != NULL) {
+    preorder(root->right);
+    printf("%i\n", root->right->data);
+  }
+  return;
+}
+
 int main() {
   Node *root = createNode(50);
 
