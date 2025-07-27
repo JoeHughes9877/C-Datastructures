@@ -22,6 +22,10 @@ A lightweight and efficient collection of data structures implemented in C. This
   - Circular buffer or linked-list based.
   - FIFO operations: `enqueue`, `dequeue`.
 
+- **Binary Search Tree (BST)**
+  - Insert, delete, search operations.
+  - Can be extended into self-balancing trees later.
+
 ## 🛠️ Planned Features
 
 The following data structures are planned for implementation:
@@ -29,10 +33,6 @@ The following data structures are planned for implementation:
 - **Hash Map**
   - String and integer key support.
   - Separate chaining or open addressing.
-
-- **Binary Search Tree (BST)**
-  - Insert, delete, search operations.
-  - Can be extended into self-balancing trees later.
 
 - **Heap / Priority Queue**
   - Min-heap or max-heap.
