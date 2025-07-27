@@ -62,7 +62,7 @@ Node *insert(Node *root, int data) {
       return root;
     }
   }
-  return NULL;
+  return root;
 }
 
 Node *search(Node *root, int target) {
@@ -135,21 +135,17 @@ int height(Node *root) {
   int right_height = 0;
 
   if (root->left != NULL) {
-    return left_height = height(root->left);
+    left_height = height(root->left);
   }
   if (root->right != NULL) {
-    return right_height = height(root->right);
+    right_height = height(root->right);
   }
 
-  if (root->right == NULL && root->left == NULL) {
-    if (left_height > right_height) {
-      return left_height + 1;
-    } else {
-      return right_height + 1;
-    }
+  if (left_height > right_height) {
+    return left_height + 1;
+  } else {
+    return right_height + 1;
   }
-  printf("height failed\n");
-  return 0;
 }
 
 int size(Node *root) {
@@ -214,7 +210,7 @@ int isBalanced(Node *root) {
     return 0;
   }
 
-  return isBalanced(root->left) - isBalanced(root->right);
+  return isBalanced(root->left) && isBalanced(root->right);
 }
 
 void inorder(Node *root) {
@@ -222,17 +218,9 @@ void inorder(Node *root) {
     printf("tree is empty\n");
     return;
   }
-
-  if (root->left != NULL) {
-    inorder(root->left);
-    printf("%i\n", root->left->data);
-  }
+  inorder(root->left);
   printf("%i\n", root->data);
-  if (root->right != NULL) {
-    inorder(root->right);
-    printf("%i\n", root->right->data);
-  }
-  return;
+  inorder(root->right);
 }
 
 void preorder(Node *root) {
@@ -240,18 +228,20 @@ void preorder(Node *root) {
     printf("tree is empty\n");
     return;
   }
-
   printf("%i\n", root->data);
+  preorder(root->left);
+  preorder(root->right);
+}
 
-  if (root->left != NULL) {
-    preorder(root->left);
-    printf("%i\n", root->left->data);
+void postorder(Node *root) {
+  if (root == NULL) {
+    printf("tree is empty\n");
+    return;
   }
-  if (root->right != NULL) {
-    preorder(root->right);
-    printf("%i\n", root->right->data);
-  }
-  return;
+
+  postorder(root->left);
+  postorder(root->right);
+  printf("%i\n", root->data);
 }
 
 int main() {
